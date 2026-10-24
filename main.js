@@ -18,27 +18,24 @@ function createWindow() {
       webviewTag: true
     }
   });
+
+
   win.webContents.setUserAgent(
-  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
-);
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
+  );
 
   win.loadFile('index.html');
-  win.webContents.on('enter-html-full-screen', () => {
-  win.setBounds({
-    x: 100,
-    y: 100,
-    width: 1280,
-    height: 720
-  });
+  win.webContents.on('enter-html-full-screen', (event) => {
+  event.preventDefault();
+
+  // Mantener fullscreen SOLO dentro de la ventana Electron
+  win.setFullScreen(false);
 });
 
-win.webContents.on('leave-html-full-screen', () => {
-  win.setBounds({
-    x: 100,
-    y: 100,
-    width: 400,
-    height: 300
-  });
+win.webContents.on('leave-html-full-screen', (event) => {
+  event.preventDefault();
+
+  win.setFullScreen(false);
 });
 }
 
